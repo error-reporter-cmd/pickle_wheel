@@ -25,7 +25,7 @@ function updateSettings(data, forceUpdate) {
             brakeIndex: data.inputs[5] || 2,
             binds: data.binds
         }
-        fetch('https://pickle_wheel/updateSettings', {
+        fetch(`https://${GetParentResourceName()}/updateSettings`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -210,7 +210,7 @@ function gameLoop(index) {
         let throttleAxis = device.axes[deviceSettings.throttleIndex];
         let brakeAxis    = device.axes[deviceSettings.brakeIndex];
 
-        fetch('https://pickle_wheel/updateInput', {
+        fetch(`https://${GetParentResourceName()}/updateInput`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -240,7 +240,7 @@ function gameLoop(index) {
         for (var i=0; i<device.buttons.length; i++) {
             if (device.buttons[i].pressed && !$("#button-" + i).hasClass("pressed")) {
                 $("#button-" + i).addClass("pressed");
-                fetch('https://pickle_wheel/buttonUpdate', {
+                fetch(`https://${GetParentResourceName()}/buttonUpdate`, {
                     method: 'post',
                     headers: {
                         'Accept': 'application/json',
@@ -256,7 +256,7 @@ function gameLoop(index) {
             }
             else if (!device.buttons[i].pressed && $("#button-" + i).hasClass("pressed")) {
                 $("#button-" + i).removeClass("pressed");
-                fetch('https://pickle_wheel/buttonUpdate', {
+                fetch(`https://${GetParentResourceName()}/buttonUpdate`, {
                     method: 'post',
                     headers: {
                         'Accept': 'application/json',
@@ -368,7 +368,7 @@ $(document).ready(function() {
     });
     $(document).on("click", "#close", function () {
         $("#container").animate({opacity: 0}, 'fast');
-        fetch('https://pickle_wheel/close', {
+        fetch(`https://${GetParentResourceName()}/close`, {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
